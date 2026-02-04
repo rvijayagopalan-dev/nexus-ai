@@ -89,7 +89,7 @@ const App: React.FC<AppProps> = ({ clientId }) => {
               <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-2xl text-red-400 text-sm mb-4">
                 <i className="fa-solid fa-triangle-exclamation mr-2"></i>
                 <p className="font-bold mb-1">Missing Google Client ID</p>
-                <p className="opacity-80">Please set the <code className="bg-black/20 px-1 rounded">GOOGLE_CLIENT_ID</code> environment variable in Vercel or your local environment.</p>
+                <p className="opacity-80">Please set the <code className="bg-black/20 px-1 rounded">VITE_GOOGLE_CLIENT_ID</code> environment variable in Vercel or your local environment (use the VITE_ prefix for Vite).</p>
               </div>
             ) : isLoggingIn ? (
               <div className="flex items-center gap-3 text-white py-4">

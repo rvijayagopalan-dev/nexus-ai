@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { jsx as _jsx } from 'react/jsx-runtime';
 import ReactDOM from 'react-dom/client';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import App from './App';
@@ -10,16 +11,16 @@ if (!rootElement) {
 }
 
 /**
- * The Google Client ID is now retrieved from environment variables.
- * For local development, add it to your .env file.
- * For production (Vercel), add it to the Environment Variables in the project settings.
+ * The Google Client ID is now retrieved from Vite environment variables (prefix with VITE_).
+ * For local development, add VITE_GOOGLE_CLIENT_ID to your .env.local file (for example: VITE_GOOGLE_CLIENT_ID=your_id).
+ * For production (Vercel), add VITE_GOOGLE_CLIENT_ID to the Environment Variables in the project settings.
  */
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || "";
 
 if (!GOOGLE_CLIENT_ID) {
   console.warn(
-    "Warning: GOOGLE_CLIENT_ID is not defined. " +
-    "Google Authentication will not work until you set the environment variable."
+    "Warning: VITE_GOOGLE_CLIENT_ID is not defined. " +
+    "Google Authentication will not work until you set the environment variable (use VITE_GOOGLE_CLIENT_ID)."
   );
 }
 
