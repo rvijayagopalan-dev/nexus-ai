@@ -1,0 +1,8 @@
+{
+  "name": "Nexus AI Dashboard",
+  "description": "A premium productivity dashboard featuring Google Authentication simulation, Gemini-powered insights, and a sleek modern UI designed for high-performance workflows.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
