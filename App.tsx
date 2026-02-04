@@ -14,7 +14,11 @@ interface GoogleJwtPayload {
   picture: string;
 }
 
-const App: React.FC = () => {
+interface AppProps {
+  clientId?: string;
+}
+
+const App: React.FC<AppProps> = ({ clientId }) => {
   const [user, setUser] = useState<User | null>(null);
   const [currentView, setCurrentView] = useState<AppView>(AppView.DASHBOARD);
   const [greeting, setGreeting] = useState<string>('Welcome back!');
@@ -64,6 +68,9 @@ const App: React.FC = () => {
   }, [user]);
 
   if (!user) {
+    // Updated check: isConfigMissing is true if clientId is falsy or still contains the placeholder string
+    const isConfigMissing = !clientId || clientId.trim() === "" || clientId.includes("your_google_client_id_here");
+
     return (
       <div className="min-h-screen flex items-center justify-center p-6 overflow-hidden relative">
         {/* Animated Background Blobs */}
@@ -77,8 +84,14 @@ const App: React.FC = () => {
           <h1 className="text-4xl font-black mb-3 text-white tracking-tight">Nexus <span className="text-blue-500">AI</span></h1>
           <p className="text-gray-400 mb-10 font-medium">Your intelligent workspace for the modern era.</p>
           
-          <div className="flex flex-col items-center justify-center w-full">
-            {isLoggingIn ? (
+          <div className="flex flex-col items-center justify-center w-full min-h-[60px]">
+            {isConfigMissing ? (
+              <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-2xl text-red-400 text-sm mb-4">
+                <i className="fa-solid fa-triangle-exclamation mr-2"></i>
+                <p className="font-bold mb-1">Missing Google Client ID</p>
+                <p className="opacity-80">Please set the <code className="bg-black/20 px-1 rounded">GOOGLE_CLIENT_ID</code> environment variable in Vercel or your local environment.</p>
+              </div>
+            ) : isLoggingIn ? (
               <div className="flex items-center gap-3 text-white py-4">
                 <i className="fa-solid fa-circle-notch animate-spin text-2xl text-blue-500"></i>
                 <span className="font-semibold">Securing Connection...</span>
